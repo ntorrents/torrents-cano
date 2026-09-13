@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+:root {
+  --wall: #eef5f1;
+  --wall-deep: #d9ebe3;
+  --sky: #d7ebf5;
+  --ink: #24352f;
+  --ink-soft: #5a6f66;
+  --paper: #fffaf3;
+  --butter: #f0d27a;
+  --coral: #e8a090;
+  --mint: #7eb8a2;
+  --frame: #f3ebe0;
+  --frame-edge: #d4c4ae;
+  --shadow: rgba(36, 53, 47, 0.12);
+}
+
+@theme inline {
+  --color-wall: var(--wall);
+  --color-wall-deep: var(--wall-deep);
+  --color-sky: var(--sky);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-butter: var(--butter);
+  --color-coral: var(--coral);
+  --color-mint: var(--mint);
+  --color-frame: var(--frame);
+  --color-frame-edge: var(--frame-edge);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-nunito);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  background: var(--wall);
+  font-family: var(--font-nunito), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--butter) 70%, white);
+  color: var(--ink);
+}
+
+.museum-wall {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(215, 235, 245, 0.7), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 85% 20%, rgba(240, 210, 122, 0.22), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(126, 184, 162, 0.18), transparent 55%),
+    linear-gradient(165deg, var(--sky) 0%, var(--wall) 42%, var(--wall-deep) 100%);
+}
+
+.paper-grain {
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+}
+
+.float-a {
+  animation: float-a 9s ease-in-out infinite;
+}
+
+.float-b {
+  animation: float-b 11s ease-in-out infinite;
+}
+
+.float-c {
+  animation: float-c 8s ease-in-out infinite;
+}
+
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translateY(0) rotate(6deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(-3deg);
+  }
+}
+
+@keyframes float-c {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 0.9s ease-out both;
+}
+
+.rise-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.rise-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.rise-delay-3 {
+  animation-delay: 0.36s;
+}
+
+.frame-shadow {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 18px 40px var(--shadow),
+    0 4px 12px rgba(36, 53, 47, 0.06);
+}
+
+.plaque {
+  background: color-mix(in oklab, var(--paper) 92%, white);
+  border: 1px solid color-mix(in oklab, var(--frame-edge) 70%, transparent);
+  box-shadow: 0 8px 24px rgba(36, 53, 47, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-a,
+  .float-b,
+  .float-c,
+  .rise,
+  .rise-delay-1,
+  .rise-delay-2,
+  .rise-delay-3 {
+    animation: none !important;
+  }
+}
