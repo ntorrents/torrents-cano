@@ -8,7 +8,11 @@ function emptyCatalog(): Catalog {
 }
 
 export function isBlobConfigured(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+  // En Vercel moderno basta BLOB_STORE_ID (+ OIDC).
+  // En local suele usarse BLOB_READ_WRITE_TOKEN.
+  return Boolean(
+    process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID,
+  );
 }
 
 export async function getCatalog(): Promise<Catalog> {

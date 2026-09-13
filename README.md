@@ -25,7 +25,7 @@ git push -u origin main
 ### 3. Crear Vercel Blob
 
 1. En el proyecto de Vercel → **Storage** → **Create** → **Blob**.
-2. Conéctalo al proyecto. Vercel añadirá `BLOB_READ_WRITE_TOKEN` sola.
+2. Conéctalo al proyecto. Vercel añadirá `BLOB_STORE_ID` (y a veces `BLOB_READ_WRITE_TOKEN`). Con el store vinculado al proyecto basta en producción.
 
 ### 4. Contraseña de curaduría
 

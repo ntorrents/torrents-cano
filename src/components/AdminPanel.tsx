@@ -207,9 +207,9 @@ export function AdminPanel({
 
       {!blobReady && (
         <div className="rounded-2xl border border-butter/60 bg-butter/20 px-5 py-4 text-sm text-ink">
-          Aún no hay <strong>Vercel Blob</strong> configurado. Crea el store en
-          el dashboard de Vercel y vuelve a desplegar (o usa{" "}
-          <code>vercel env pull</code>).
+          Aún no hay <strong>Vercel Blob</strong> configurado. En el dashboard
+          crea el store y asegúrate de tener <code>BLOB_STORE_ID</code> o{" "}
+          <code>BLOB_READ_WRITE_TOKEN</code>, luego vuelve a desplegar.
         </div>
       )}
 
