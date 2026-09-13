@@ -17,27 +17,29 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: "Atelier — exposición sobre papel",
+    default: "Atelier — sala d’obres sobre paper",
     template: "%s · Atelier",
   },
   description:
-    "Una sala pequeña y elegante para colgar obras sobre papel. Exposición permanente.",
+    "Una sala petita on els dibuixos i els colors troben el seu lloc, un al costat de l’altre.",
+  // Ruta nova (no /favicon.ico) per evitar la caché del triangle de Next.
   icons: {
-    icon: [
-      { url: "/favicon.ico?v=3", sizes: "48x48" },
-      { url: "/icon?v=3", type: "image/png", sizes: "32x32" },
-    ],
-    shortcut: "/favicon.ico?v=3",
-    apple: [{ url: "/apple-icon.png?v=3", sizes: "180x180" }],
+    icon: [{ url: "/atelier-mark.png?v=5", type: "image/png", sizes: "32x32" }],
+    shortcut: "/atelier-mark.png?v=5",
+    apple: [{ url: "/atelier-mark-180.png?v=5", sizes: "180x180" }],
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="es"
+      lang="ca"
       className={`${fraunces.variable} ${nunito.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" href="/atelier-mark.png?v=5" type="image/png" sizes="32x32" />
+        <link rel="shortcut icon" href="/atelier-mark.png?v=5" type="image/png" />
+      </head>
       <body className="museum-wall paper-grain flex min-h-full flex-col text-ink">
         <SiteHeader />
         <main className="relative flex-1">{children}</main>

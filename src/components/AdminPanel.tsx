@@ -59,7 +59,7 @@ export function AdminPanel({
       });
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "No se pudo entrar");
+        throw new Error(data.error || "No s’ha pogut entrar");
       }
       setAuthed(true);
       setPassword("");
@@ -78,7 +78,7 @@ export function AdminPanel({
   async function upload(e: FormEvent) {
     e.preventDefault();
     if (!file) {
-      setError("Elige una foto del cuadro");
+      setError("Tria una foto del quadre");
       return;
     }
     setBusy(true);
@@ -99,11 +99,11 @@ export function AdminPanel({
       } catch {
         throw new Error(
           res.ok
-            ? "Respuesta inválida del servidor"
-            : `Error al subir (${res.status})`,
+            ? "Resposta invàlida del servidor"
+            : `Error en pujar (${res.status})`,
         );
       }
-      if (!res.ok) throw new Error(data.error || "No se pudo subir");
+      if (!res.ok) throw new Error(data.error || "No s’ha pogut pujar");
 
       setArtworks((prev) => [data.artwork as Artwork, ...prev]);
       setTitle("");
@@ -119,7 +119,7 @@ export function AdminPanel({
   }
 
   async function remove(id: string) {
-    if (!confirm("¿Quitar esta obra de la exposición?")) return;
+    if (!confirm("Vols treure aquesta obra de l’exposició?")) return;
     setBusy(true);
     setError(null);
     try {
@@ -129,7 +129,7 @@ export function AdminPanel({
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "No se pudo eliminar");
+      if (!res.ok) throw new Error(data.error || "No s’ha pogut eliminar");
       setArtworks((prev) => prev.filter((a) => a.id !== id));
       router.refresh();
     } catch (err) {
@@ -143,11 +143,11 @@ export function AdminPanel({
     return (
       <div className="plaque mx-auto max-w-lg px-6 py-8">
         <h1 className="font-[family-name:var(--font-fraunces)] text-3xl">
-          Curaduría
+          Comissariat
         </h1>
         <p className="mt-3 text-ink-soft">
-          Define <code className="text-ink">ADMIN_PASSWORD</code> en las
-          variables de entorno para proteger esta zona.
+          Defineix <code className="text-ink">ADMIN_PASSWORD</code> a les
+          variables d’entorn per protegir aquesta zona.
         </p>
       </div>
     );
@@ -155,7 +155,7 @@ export function AdminPanel({
 
   if (checking) {
     return (
-      <p className="text-center text-sm text-ink-soft">Abriendo la sala…</p>
+      <p className="text-center text-sm text-ink-soft">Obrint la sala…</p>
     );
   }
 
@@ -166,14 +166,13 @@ export function AdminPanel({
         className="plaque mx-auto max-w-md space-y-5 px-6 py-8"
       >
         <h1 className="font-[family-name:var(--font-fraunces)] text-3xl">
-          Curaduría
+          Comissariat
         </h1>
         <p className="text-sm text-ink-soft">
-          Solo quien cuelga las obras. La sala pública no muestra datos
-          personales.
+          Benvingut. Entra per penjar noves obres a la sala.
         </p>
         <label className="block text-sm">
-          <span className="mb-1.5 block text-ink-soft">Contraseña</span>
+          <span className="mb-1.5 block text-ink-soft">Contrasenya</span>
           <input
             type="password"
             value={password}
@@ -199,11 +198,11 @@ export function AdminPanel({
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="font-[family-name:var(--font-fraunces)] text-4xl text-ink">
-            Curaduría
+            Comissariat
           </h1>
           <p className="mt-2 text-ink-soft">
-            Sube una foto del cuadro. Título, técnica y año bastan para la
-            cartela del museo.
+            Puja una foto del quadre. Títol, tècnica i any basten per a la
+            cartela del museu.
           </p>
         </div>
         <button
@@ -211,25 +210,22 @@ export function AdminPanel({
           onClick={logout}
           className="text-sm text-ink-soft underline-offset-2 hover:text-ink hover:underline"
         >
-          Salir
+          Sortir
         </button>
       </div>
 
       {!blobReady && (
         <div className="rounded-2xl border border-butter/60 bg-butter/20 px-5 py-4 text-sm text-ink">
-          Aún no hay <strong>Vercel Blob</strong> configurado. En el dashboard
-          crea el store y asegúrate de tener <code>BLOB_STORE_ID</code> o{" "}
-          <code>BLOB_READ_WRITE_TOKEN</code>, luego vuelve a desplegar.
+          Encara no hi ha <strong>Vercel Blob</strong> configurat. Al dashboard
+          crea l’store i assegura’t de tenir <code>BLOB_STORE_ID</code> o{" "}
+          <code>BLOB_READ_WRITE_TOKEN</code>, i torna a desplegar.
         </div>
       )}
 
-      <form
-        onSubmit={upload}
-        className="plaque space-y-5 px-6 py-7"
-      >
+      <form onSubmit={upload} className="plaque space-y-5 px-6 py-7">
         <div className="grid gap-4 md:grid-cols-2">
           <label className="block text-sm md:col-span-2">
-            <span className="mb-1.5 block text-ink-soft">Foto del cuadro</span>
+            <span className="mb-1.5 block text-ink-soft">Foto del quadre</span>
             <input
               type="file"
               accept="image/*"
@@ -239,17 +235,17 @@ export function AdminPanel({
             />
           </label>
           <label className="block text-sm md:col-span-2">
-            <span className="mb-1.5 block text-ink-soft">Título</span>
+            <span className="mb-1.5 block text-ink-soft">Títol</span>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ej. Sol de la mañana"
+              placeholder="Ex. Sol del matí"
               className="w-full rounded-xl border border-frame-edge bg-paper px-4 py-3 outline-none ring-mint focus:ring-2"
               required
             />
           </label>
           <label className="block text-sm">
-            <span className="mb-1.5 block text-ink-soft">Año</span>
+            <span className="mb-1.5 block text-ink-soft">Any</span>
             <input
               value={year}
               onChange={(e) => setYear(e.target.value)}
@@ -257,11 +253,11 @@ export function AdminPanel({
             />
           </label>
           <label className="block text-sm">
-            <span className="mb-1.5 block text-ink-soft">Técnica</span>
+            <span className="mb-1.5 block text-ink-soft">Tècnica</span>
             <input
               value={medium}
               onChange={(e) => setMedium(e.target.value)}
-              placeholder="Ceras, acuarela…"
+              placeholder="Ceres, aquarel·la…"
               className="w-full rounded-xl border border-frame-edge bg-paper px-4 py-3 outline-none ring-mint focus:ring-2"
             />
           </label>
@@ -273,7 +269,7 @@ export function AdminPanel({
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               rows={3}
-              placeholder="Una línea breve, sin datos personales."
+              placeholder="Una línia breu, sense dades personals."
               className="w-full rounded-xl border border-frame-edge bg-paper px-4 py-3 outline-none ring-mint focus:ring-2"
             />
           </label>
@@ -284,13 +280,13 @@ export function AdminPanel({
           disabled={busy || !blobReady}
           className="rounded-full bg-mint px-6 py-2.5 text-sm font-medium text-ink transition hover:brightness-105 disabled:opacity-50"
         >
-          Colgar en la exposición
+          Penjar a l’exposició
         </button>
       </form>
 
       <section>
         <h2 className="font-[family-name:var(--font-fraunces)] text-2xl">
-          Obras en sala ({artworks.length})
+          Obres a la sala ({artworks.length})
         </h2>
         <ul className="mt-5 space-y-3">
           {artworks.map((a) => (
@@ -310,12 +306,12 @@ export function AdminPanel({
                 onClick={() => remove(a.id)}
                 className="text-sm text-coral hover:underline disabled:opacity-50"
               >
-                Quitar
+                Treure
               </button>
             </li>
           ))}
           {artworks.length === 0 && (
-            <li className="text-sm text-ink-soft">Todavía no hay obras.</li>
+            <li className="text-sm text-ink-soft">Encara no hi ha obres.</li>
           )}
         </ul>
       </section>

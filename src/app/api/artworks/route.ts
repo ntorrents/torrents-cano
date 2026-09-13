@@ -15,7 +15,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "No autoritzat" }, { status: 401 });
   }
 
   if (!isBlobConfigured()) {
@@ -38,14 +38,14 @@ export async function POST(request: Request) {
 
     if (!(file instanceof File) || file.size === 0) {
       return NextResponse.json(
-        { error: "Falta la foto de la obra" },
+        { error: "Falta la foto de l’obra" },
         { status: 400 },
       );
     }
 
     if (!file.type.startsWith("image/")) {
       return NextResponse.json(
-        { error: "Solo se admiten imágenes" },
+        { error: "Només s’admeten imatges" },
         { status: 400 },
       );
     }
@@ -65,31 +65,31 @@ export async function POST(request: Request) {
     return NextResponse.json({ artwork });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "No se pudo subir la obra";
+      error instanceof Error ? error.message : "No s’ha pogut pujar l’obra";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
 export async function DELETE(request: Request) {
   if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "No autoritzat" }, { status: 401 });
   }
 
   try {
     const body = (await request.json()) as { id?: string };
     if (!body.id) {
-      return NextResponse.json({ error: "Falta el id" }, { status: 400 });
+      return NextResponse.json({ error: "Falta l’id" }, { status: 400 });
     }
 
     const ok = await removeArtwork(body.id);
     if (!ok) {
-      return NextResponse.json({ error: "Obra no encontrada" }, { status: 404 });
+      return NextResponse.json({ error: "Obra no trobada" }, { status: 404 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "No se pudo eliminar";
+      error instanceof Error ? error.message : "No s’ha pogut eliminar";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

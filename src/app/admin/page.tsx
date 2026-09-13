@@ -4,7 +4,7 @@ import { isAdminConfigured, isAuthenticated } from "@/lib/auth";
 import { getCatalog, isBlobConfigured } from "@/lib/artworks";
 
 export const metadata: Metadata = {
-  title: "Curaduría",
+  title: "Comissariat",
   robots: { index: false, follow: false },
 };
 

@@ -67,7 +67,7 @@ export function ArtworkCard({ artwork, index = 0 }: Props) {
           </p>
           <p className="mt-1 text-sm text-ink-soft">
             {[artwork.medium, artwork.year].filter(Boolean).join(" · ") ||
-              "Obra sobre papel"}
+              "Obra sobre paper"}
           </p>
         </figcaption>
       </figure>

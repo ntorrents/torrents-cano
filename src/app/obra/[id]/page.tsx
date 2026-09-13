@@ -53,7 +53,7 @@ export default async function ArtworkPage({ params }: Props) {
           />
           <span
             aria-hidden
-            className="washi-tape absolute -top-0 right-10 z-20 h-4 w-12 rotate-12 rounded-[2px] bg-mint/80 shadow-sm"
+            className="washi-tape absolute right-10 top-0 z-20 h-4 w-12 rotate-12 rounded-[2px] bg-mint/80 shadow-sm"
           />
 
           <div className="frame-shadow rounded-[4px] border-[12px] border-[#d8c7ae] bg-[#f7f0e4] p-3 ring-1 ring-[#a89072]/50 md:border-[18px] md:p-4">
@@ -87,13 +87,13 @@ export default async function ArtworkPage({ params }: Props) {
             <dl className="mt-6 space-y-3 text-sm">
               {artwork.medium && (
                 <div>
-                  <dt className="text-ink-soft">Técnica</dt>
+                  <dt className="text-ink-soft">Tècnica</dt>
                   <dd className="text-ink">{artwork.medium}</dd>
                 </div>
               )}
               {artwork.year && (
                 <div>
-                  <dt className="text-ink-soft">Año</dt>
+                  <dt className="text-ink-soft">Any</dt>
                   <dd className="text-ink">{artwork.year}</dd>
                 </div>
               )}
@@ -107,7 +107,7 @@ export default async function ArtworkPage({ params }: Props) {
 
           <div className="mt-8 flex flex-wrap gap-4 text-sm">
             <Link href="/galeria" className="text-ink-soft hover:text-ink">
-              ← Volver a la sala
+              ← Tornar a la sala
             </Link>
             {prev && (
               <Link href={`/obra/${prev.id}`} className="hover:text-mint">
@@ -116,7 +116,7 @@ export default async function ArtworkPage({ params }: Props) {
             )}
             {next && (
               <Link href={`/obra/${next.id}`} className="hover:text-mint">
-                Siguiente
+                Següent
               </Link>
             )}
           </div>

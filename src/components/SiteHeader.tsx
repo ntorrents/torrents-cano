@@ -14,20 +14,20 @@ export function SiteHeader() {
           >
             <span className="relative block h-4 w-4 overflow-hidden rounded-[2px] bg-paper">
               <span className="absolute left-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-butter" />
-              <span className="absolute bottom-0 inset-x-0 h-1.5 bg-mint" />
+              <span className="absolute inset-x-0 bottom-0 h-1.5 bg-mint" />
             </span>
           </span>
           Atelier
         </Link>
         <nav className="flex items-center gap-6 text-sm text-ink-soft md:gap-8">
           <Link href="/galeria" className="transition-colors hover:text-ink">
-            Exposición
+            Exposició
           </Link>
           <Link
             href="/admin"
             className="rounded-full border border-frame-edge/70 bg-paper/60 px-3 py-1.5 text-xs tracking-wide text-ink-soft backdrop-blur-sm transition hover:border-mint hover:text-ink"
           >
-            Curaduría
+            Comissariat
           </Link>
         </nav>
       </div>

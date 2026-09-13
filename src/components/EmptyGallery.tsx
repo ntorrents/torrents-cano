@@ -17,11 +17,11 @@ export function EmptyGallery() {
         </svg>
       </div>
       <h2 className="font-[family-name:var(--font-fraunces)] text-3xl text-ink">
-        La sala espera su primera obra
+        La sala espera la primera obra
       </h2>
       <p className="mt-3 text-ink-soft">
-        Cuando subas fotos desde la curaduría, aparecerán aquí colgadas como en
-        un museo — con su marco y su cartela.
+        Quan pengis fotos des del comissariat, apareixeran aquí com en un museu
+        — amb el seu marc i la seva cartela.
       </p>
     </div>
   );

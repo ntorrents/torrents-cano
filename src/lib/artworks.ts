@@ -75,7 +75,7 @@ export async function addArtwork(
   const catalog = await getCatalog();
   const artwork: Artwork = {
     id: input.id ?? crypto.randomUUID(),
-    title: input.title.trim() || "Sin título",
+    title: input.title.trim() || "Sense títol",
     year: input.year?.trim() || undefined,
     medium: input.medium?.trim() || undefined,
     caption: input.caption?.trim() || undefined,

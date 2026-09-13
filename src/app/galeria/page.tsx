@@ -7,8 +7,8 @@ import { getCatalog } from "@/lib/artworks";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Exposición",
-  description: "Obras colgadas en la sala de Atelier.",
+  title: "Exposició",
+  description: "Obres penjades a la sala d’Atelier.",
 };
 
 export default async function GalleryPage() {
@@ -24,10 +24,11 @@ export default async function GalleryPage() {
             sala principal
           </p>
           <h1 className="squiggle-underline mt-3 inline-block font-[family-name:var(--font-fraunces)] text-4xl text-ink md:text-5xl">
-            La exposición
+            L’exposició
           </h1>
           <p className="mt-4 text-ink">
-            Cada obra cuelga con su marco y su cartela. Camina despacio.
+            Cada obra penja amb el seu marc i la seva cartela. Camina a poc a
+            poc.
           </p>
           <div className="gallery-rail mx-auto mt-8 max-w-xs" />
         </header>

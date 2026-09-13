@@ -7,9 +7,9 @@ export function SiteFooter() {
         <p className="font-[family-name:var(--font-fraunces)] text-base text-ink">
           Atelier
         </p>
-        <p>Una sala pequeña para obras sobre papel.</p>
+        <p>Una sala petita que cuida grans obres.</p>
         <Link href="/galeria" className="hover:text-ink">
-          Volver a la exposición
+          Tornar a l’exposició
         </Link>
       </div>
     </footer>
