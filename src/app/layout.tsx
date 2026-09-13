@@ -22,6 +22,14 @@ export const metadata: Metadata = {
   },
   description:
     "Una sala pequeña y elegante para colgar obras sobre papel. Exposición permanente.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3", sizes: "48x48" },
+      { url: "/icon?v=3", type: "image/png", sizes: "32x32" },
+    ],
+    shortcut: "/favicon.ico?v=3",
+    apple: [{ url: "/apple-icon.png?v=3", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -32,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="museum-wall paper-grain flex min-h-full flex-col text-ink">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="relative flex-1">{children}</main>
         <SiteFooter />
       </body>
     </html>
