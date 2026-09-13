@@ -26,6 +26,7 @@ git push -u origin main
 
 1. En el proyecto de Vercel → **Storage** → **Create** → **Blob**.
 2. Conéctalo al proyecto. Vercel añadirá `BLOB_STORE_ID` (y a veces `BLOB_READ_WRITE_TOKEN`). Con el store vinculado al proyecto basta en producción.
+3. Si el store es **privado** (por defecto en muchos casos), la app ya está preparada: sube en privado y sirve las fotos por `/api/media/...`.
 
 ### 4. Contraseña de curaduría
 

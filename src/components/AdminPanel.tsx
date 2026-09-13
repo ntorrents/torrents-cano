@@ -92,7 +92,17 @@ export function AdminPanel({
       form.set("caption", caption);
 
       const res = await fetch("/api/artworks", { method: "POST", body: form });
-      const data = await res.json();
+      const text = await res.text();
+      let data: { error?: string; artwork?: Artwork } = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error(
+          res.ok
+            ? "Respuesta inválida del servidor"
+            : `Error al subir (${res.status})`,
+        );
+      }
       if (!res.ok) throw new Error(data.error || "No se pudo subir");
 
       setArtworks((prev) => [data.artwork as Artwork, ...prev]);

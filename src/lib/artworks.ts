@@ -1,32 +1,45 @@
-import { list, put, del } from "@vercel/blob";
+import { put, del, get } from "@vercel/blob";
 import type { Artwork, Catalog } from "./types";
 
 const CATALOG_PATH = "gallery/catalog.json";
+export const MEDIA_PREFIX = "/api/media/";
 
 function emptyCatalog(): Catalog {
   return { version: 1, artworks: [] };
 }
 
+/** Prefer RW token locally; on Vercel, OIDC + BLOB_STORE_ID is enough. */
+export function blobAuth(): { token?: string } {
+  const token = process.env.BLOB_READ_WRITE_TOKEN?.trim();
+  return token ? { token } : {};
+}
+
 export function isBlobConfigured(): boolean {
-  // En Vercel moderno basta BLOB_STORE_ID (+ OIDC).
-  // En local suele usarse BLOB_READ_WRITE_TOKEN.
   return Boolean(
-    process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID,
+    process.env.BLOB_READ_WRITE_TOKEN?.trim() ||
+      process.env.BLOB_STORE_ID?.trim(),
   );
+}
+
+export function mediaUrlForPathname(pathname: string): string {
+  return `${MEDIA_PREFIX}${pathname.split("/").map(encodeURIComponent).join("/")}`;
 }
 
 export async function getCatalog(): Promise<Catalog> {
   if (!isBlobConfigured()) return emptyCatalog();
 
   try {
-    const { blobs } = await list({ prefix: CATALOG_PATH, limit: 1 });
-    const catalogBlob = blobs.find((b) => b.pathname === CATALOG_PATH);
-    if (!catalogBlob) return emptyCatalog();
+    const result = await get(CATALOG_PATH, {
+      access: "private",
+      useCache: false,
+      ...blobAuth(),
+    });
 
-    const res = await fetch(catalogBlob.url, { cache: "no-store" });
-    if (!res.ok) return emptyCatalog();
+    if (!result || result.statusCode !== 200 || !result.stream) {
+      return emptyCatalog();
+    }
 
-    const data = (await res.json()) as Catalog;
+    const data = (await new Response(result.stream).json()) as Catalog;
     if (!data?.artworks || !Array.isArray(data.artworks)) return emptyCatalog();
 
     return {
@@ -43,10 +56,11 @@ export async function getCatalog(): Promise<Catalog> {
 
 async function saveCatalog(catalog: Catalog): Promise<void> {
   await put(CATALOG_PATH, JSON.stringify(catalog, null, 2), {
-    access: "public",
+    access: "private",
     contentType: "application/json",
     allowOverwrite: true,
     addRandomSuffix: false,
+    ...blobAuth(),
   });
 }
 
@@ -84,7 +98,7 @@ export async function removeArtwork(id: string): Promise<boolean> {
   await saveCatalog(catalog);
 
   try {
-    await del(artwork.imagePathname);
+    await del(artwork.imagePathname, blobAuth());
   } catch {
     // image may already be gone
   }
@@ -96,15 +110,27 @@ export async function uploadArtworkImage(
   file: File,
   id: string,
 ): Promise<{ url: string; pathname: string }> {
-  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const rawExt = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const ext = /^[a-z0-9]{1,5}$/.test(rawExt) ? rawExt : "jpg";
   const pathname = `gallery/artworks/${id}.${ext}`;
 
   const blob = await put(pathname, file, {
-    access: "public",
+    access: "private",
     contentType: file.type || "image/jpeg",
     addRandomSuffix: false,
     allowOverwrite: true,
+    ...blobAuth(),
   });
 
-  return { url: blob.url, pathname: blob.pathname };
+  return {
+    url: mediaUrlForPathname(blob.pathname),
+    pathname: blob.pathname,
+  };
+}
+
+export async function readPrivateBlob(pathname: string) {
+  return get(pathname, {
+    access: "private",
+    ...blobAuth(),
+  });
 }
